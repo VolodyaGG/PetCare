@@ -1,0 +1,110 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "intent": {
+      "enum": [
+        "create_task",
+        "log_care",
+        "unknown"
+      ],
+      "title": "Intent",
+      "type": "string"
+    },
+    "source_text": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Source Text",
+      "type": "string"
+    },
+    "pet_name": {
+      "anyOf": [
+        {
+          "maxLength": 100,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Pet Name"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "maxLength": 120,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Title"
+    },
+    "due_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Due At"
+    },
+    "recurrence": {
+      "anyOf": [
+        {
+          "enum": [
+            "none",
+            "daily",
+            "weekly",
+            "monthly"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recurrence"
+    },
+    "missing_fields": {
+      "items": {
+        "enum": [
+          "pet",
+          "title",
+          "due_at",
+          "intent"
+        ],
+        "type": "string"
+      },
+      "title": "Missing Fields",
+      "type": "array"
+    },
+    "requires_confirmation": {
+      "const": true,
+      "default": true,
+      "title": "Requires Confirmation",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "intent",
+    "source_text"
+  ],
+  "title": "VoiceCommandDraft",
+  "type": "object"
+}
