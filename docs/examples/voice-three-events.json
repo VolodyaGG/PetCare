@@ -1,0 +1,118 @@
+{
+  "schema_version": 2,
+  "recording_id": "00000000-0000-4000-8000-000000000001",
+  "result_id": "00000000-0000-4000-8000-000000000002",
+  "revision": 1,
+  "transcript_revision": 1,
+  "transcript": "Сегодня в восемь утра покормил Марса, в девять утра погулял с ним, а завтра в десять утра нужно дать Луне лекарство.",
+  "recording_started_at": "2026-11-26T09:30:00+03:00",
+  "timezone": "Europe/Moscow",
+  "drafts": [
+    {
+      "draft_id": "00000000-0000-4000-8000-000000000011",
+      "intent": "log_care",
+      "title": "Кормление",
+      "pet_name": "Марса",
+      "pet_id": "00000000-0000-4000-8000-000000000101",
+      "pet_resolution": "explicit",
+      "pet_from_draft_id": null,
+      "pet_candidates": [],
+      "due_at": null,
+      "occurred_at": "2026-11-26T08:00:00+03:00",
+      "time_status": "resolved",
+      "event_span": {
+        "start": 0,
+        "end": 36,
+        "quote": "Сегодня в восемь утра покормил Марса"
+      },
+      "action_span": {
+        "start": 22,
+        "end": 30,
+        "quote": "покормил"
+      },
+      "time_spans": [
+        {
+          "start": 0,
+          "end": 21,
+          "quote": "Сегодня в восемь утра"
+        }
+      ],
+      "recurrence_text": null,
+      "notices": [],
+      "problems": []
+    },
+    {
+      "draft_id": "00000000-0000-4000-8000-000000000012",
+      "intent": "log_care",
+      "title": "Прогулка",
+      "pet_name": null,
+      "pet_id": "00000000-0000-4000-8000-000000000101",
+      "pet_resolution": "context",
+      "pet_from_draft_id": "00000000-0000-4000-8000-000000000011",
+      "pet_candidates": [],
+      "due_at": null,
+      "occurred_at": "2026-11-26T09:00:00+03:00",
+      "time_status": "resolved",
+      "event_span": {
+        "start": 38,
+        "end": 65,
+        "quote": "в девять утра погулял с ним"
+      },
+      "action_span": {
+        "start": 52,
+        "end": 59,
+        "quote": "погулял"
+      },
+      "time_spans": [
+        {
+          "start": 38,
+          "end": 51,
+          "quote": "в девять утра"
+        }
+      ],
+      "recurrence_text": null,
+      "notices": [
+        {
+          "code": "pet_from_context",
+          "message": "Марс — из предыдущей фразы"
+        }
+      ],
+      "problems": []
+    },
+    {
+      "draft_id": "00000000-0000-4000-8000-000000000013",
+      "intent": "create_task",
+      "title": "Дать лекарство",
+      "pet_name": "Луне",
+      "pet_id": "00000000-0000-4000-8000-000000000102",
+      "pet_resolution": "explicit",
+      "pet_from_draft_id": null,
+      "pet_candidates": [],
+      "due_at": "2026-11-27T10:00:00+03:00",
+      "occurred_at": null,
+      "time_status": "resolved",
+      "event_span": {
+        "start": 69,
+        "end": 115,
+        "quote": "завтра в десять утра нужно дать Луне лекарство"
+      },
+      "action_span": {
+        "start": 96,
+        "end": 100,
+        "quote": "дать"
+      },
+      "time_spans": [
+        {
+          "start": 69,
+          "end": 89,
+          "quote": "завтра в десять утра"
+        }
+      ],
+      "recurrence_text": null,
+      "notices": [],
+      "problems": []
+    }
+  ],
+  "unparsed_fragments": [],
+  "requires_confirmation": true
+}

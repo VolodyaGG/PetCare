@@ -1,0 +1,129 @@
+{
+  "$defs": {
+    "VoiceExtractedDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "intent": {
+          "enum": [
+            "create_task",
+            "log_care"
+          ],
+          "title": "Intent",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Title"
+        },
+        "pet_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pet Name"
+        },
+        "pet_reference_item": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Pet Reference Item"
+        },
+        "time_kind": {
+          "enum": [
+            "explicit",
+            "no_deadline",
+            "missing",
+            "ambiguous"
+          ],
+          "title": "Time Kind",
+          "type": "string"
+        },
+        "event_quote": {
+          "title": "Event Quote",
+          "type": "string"
+        },
+        "action_quote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Action Quote"
+        },
+        "time_quotes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Time Quotes",
+          "type": "array"
+        },
+        "recurrence_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Recurrence Text"
+        }
+      },
+      "required": [
+        "intent",
+        "title",
+        "pet_name",
+        "pet_reference_item",
+        "time_kind",
+        "event_quote",
+        "action_quote",
+        "time_quotes",
+        "recurrence_text"
+      ],
+      "title": "VoiceExtractedDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "drafts": {
+      "items": {
+        "$ref": "#/$defs/VoiceExtractedDraft"
+      },
+      "title": "Drafts",
+      "type": "array"
+    },
+    "unparsed_quotes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unparsed Quotes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "drafts",
+    "unparsed_quotes"
+  ],
+  "title": "VoiceExtractionOutput",
+  "type": "object"
+}

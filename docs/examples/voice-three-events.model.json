@@ -1,0 +1,44 @@
+{
+  "drafts": [
+    {
+      "intent": "log_care",
+      "title": "Кормление",
+      "pet_name": "Марса",
+      "pet_reference_item": null,
+      "time_kind": "explicit",
+      "event_quote": "Сегодня в восемь утра покормил Марса",
+      "action_quote": "покормил",
+      "time_quotes": [
+        "Сегодня в восемь утра"
+      ],
+      "recurrence_text": null
+    },
+    {
+      "intent": "log_care",
+      "title": "Прогулка",
+      "pet_name": null,
+      "pet_reference_item": 0,
+      "time_kind": "explicit",
+      "event_quote": "в девять утра погулял с ним",
+      "action_quote": "погулял",
+      "time_quotes": [
+        "в девять утра"
+      ],
+      "recurrence_text": null
+    },
+    {
+      "intent": "create_task",
+      "title": "Дать лекарство",
+      "pet_name": "Луне",
+      "pet_reference_item": null,
+      "time_kind": "explicit",
+      "event_quote": "завтра в десять утра нужно дать Луне лекарство",
+      "action_quote": "дать",
+      "time_quotes": [
+        "завтра в десять утра"
+      ],
+      "recurrence_text": null
+    }
+  ],
+  "unparsed_quotes": []
+}

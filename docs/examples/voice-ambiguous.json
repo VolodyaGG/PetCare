@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "recording_id": "00000000-0000-4000-8000-000000000003",
+  "result_id": "00000000-0000-4000-8000-000000000004",
+  "revision": 1,
+  "transcript_revision": 1,
+  "transcript": "Завтра вечером покормить Марса. И ещё вот это.",
+  "recording_started_at": "2026-11-26T09:30:00+03:00",
+  "timezone": "Europe/Moscow",
+  "drafts": [
+    {
+      "draft_id": "00000000-0000-4000-8000-000000000021",
+      "intent": "create_task",
+      "title": "Кормление",
+      "pet_name": "Марса",
+      "pet_id": null,
+      "pet_resolution": "unresolved",
+      "pet_from_draft_id": null,
+      "pet_candidates": [
+        {
+          "pet_id": "00000000-0000-4000-8000-000000000101",
+          "name": "Марс",
+          "species": "Собака",
+          "subtitle": "Семья Ольги"
+        },
+        {
+          "pet_id": "00000000-0000-4000-8000-000000000103",
+          "name": "Марс",
+          "species": "Кот",
+          "subtitle": "Рыжий"
+        }
+      ],
+      "due_at": null,
+      "occurred_at": null,
+      "time_status": "ambiguous",
+      "event_span": {
+        "start": 0,
+        "end": 30,
+        "quote": "Завтра вечером покормить Марса"
+      },
+      "action_span": {
+        "start": 15,
+        "end": 24,
+        "quote": "покормить"
+      },
+      "time_spans": [
+        {
+          "start": 0,
+          "end": 14,
+          "quote": "Завтра вечером"
+        }
+      ],
+      "recurrence_text": null,
+      "notices": [],
+      "problems": [
+        {
+          "field": "pet",
+          "code": "ambiguous",
+          "message": "Два доступных питомца с кличкой Марс; требуется выбор UUID."
+        },
+        {
+          "field": "time",
+          "code": "ambiguous",
+          "message": "Не указано точное время: «вечером»."
+        }
+      ]
+    }
+  ],
+  "unparsed_fragments": [
+    {
+      "span": {
+        "start": 32,
+        "end": 46,
+        "quote": "И ещё вот это."
+      },
+      "text": "И ещё вот это.",
+      "reason": "ambiguous_meaning"
+    }
+  ],
+  "requires_confirmation": true
+}

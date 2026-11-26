@@ -1,97 +1,421 @@
 {
+  "$defs": {
+    "PetCandidate": {
+      "additionalProperties": false,
+      "description": "Server-supplied, access-checked candidate; never trusted just because LLM returned it.",
+      "properties": {
+        "pet_id": {
+          "format": "uuid",
+          "title": "Pet Id",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "species": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Species",
+          "type": "string"
+        },
+        "subtitle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subtitle"
+        }
+      },
+      "required": [
+        "pet_id",
+        "name",
+        "species"
+      ],
+      "title": "PetCandidate",
+      "type": "object"
+    },
+    "TextSpan": {
+      "additionalProperties": false,
+      "description": "UTF-16 code-unit offsets [start, end) into the envelope's transcript revision.",
+      "properties": {
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start",
+        "end",
+        "quote"
+      ],
+      "title": "TextSpan",
+      "type": "object"
+    },
+    "UnparsedFragment": {
+      "additionalProperties": false,
+      "properties": {
+        "span": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextSpan"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "reason": {
+          "enum": [
+            "unknown_intent",
+            "ambiguous_meaning",
+            "ambiguous_span",
+            "unsupported"
+          ],
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "span",
+        "text",
+        "reason"
+      ],
+      "title": "UnparsedFragment",
+      "type": "object"
+    },
+    "VoiceCommandDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "draft_id": {
+          "format": "uuid",
+          "title": "Draft Id",
+          "type": "string"
+        },
+        "intent": {
+          "enum": [
+            "create_task",
+            "log_care"
+          ],
+          "title": "Intent",
+          "type": "string"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 120,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "pet_name": {
+          "anyOf": [
+            {
+              "maxLength": 100,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pet Name"
+        },
+        "pet_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pet Id"
+        },
+        "pet_resolution": {
+          "enum": [
+            "explicit",
+            "context",
+            "unresolved"
+          ],
+          "title": "Pet Resolution",
+          "type": "string"
+        },
+        "pet_from_draft_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pet From Draft Id"
+        },
+        "pet_candidates": {
+          "items": {
+            "$ref": "#/$defs/PetCandidate"
+          },
+          "title": "Pet Candidates",
+          "type": "array"
+        },
+        "due_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Due At"
+        },
+        "occurred_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Occurred At"
+        },
+        "time_status": {
+          "enum": [
+            "resolved",
+            "no_deadline",
+            "missing",
+            "ambiguous"
+          ],
+          "title": "Time Status",
+          "type": "string"
+        },
+        "event_span": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextSpan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "action_span": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TextSpan"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "time_spans": {
+          "items": {
+            "$ref": "#/$defs/TextSpan"
+          },
+          "title": "Time Spans",
+          "type": "array"
+        },
+        "recurrence_text": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recurrence Text"
+        },
+        "notices": {
+          "items": {
+            "$ref": "#/$defs/VoiceNotice"
+          },
+          "title": "Notices",
+          "type": "array"
+        },
+        "problems": {
+          "items": {
+            "$ref": "#/$defs/VoiceProblem"
+          },
+          "title": "Problems",
+          "type": "array"
+        }
+      },
+      "required": [
+        "draft_id",
+        "intent",
+        "pet_resolution",
+        "time_status"
+      ],
+      "title": "VoiceCommandDraft",
+      "type": "object"
+    },
+    "VoiceNotice": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "pet_from_context",
+            "time_corrected"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "VoiceNotice",
+      "type": "object"
+    },
+    "VoiceProblem": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "enum": [
+            "pet",
+            "title",
+            "time",
+            "source",
+            "recurrence",
+            "intent"
+          ],
+          "title": "Field",
+          "type": "string"
+        },
+        "code": {
+          "enum": [
+            "missing",
+            "ambiguous",
+            "not_found",
+            "invalid_time",
+            "ambiguous_span",
+            "unsupported"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        }
+      },
+      "required": [
+        "field",
+        "code",
+        "message"
+      ],
+      "title": "VoiceProblem",
+      "type": "object"
+    }
+  },
   "additionalProperties": false,
   "properties": {
+    "recording_id": {
+      "format": "uuid",
+      "title": "Recording Id",
+      "type": "string"
+    },
+    "revision": {
+      "minimum": 1,
+      "title": "Revision",
+      "type": "integer"
+    },
+    "transcript_revision": {
+      "minimum": 1,
+      "title": "Transcript Revision",
+      "type": "integer"
+    },
+    "transcript": {
+      "maxLength": 4000,
+      "minLength": 1,
+      "title": "Transcript",
+      "type": "string"
+    },
+    "recording_started_at": {
+      "format": "date-time",
+      "title": "Recording Started At",
+      "type": "string"
+    },
+    "timezone": {
+      "title": "Timezone",
+      "type": "string"
+    },
     "schema_version": {
-      "const": 1,
-      "default": 1,
+      "const": 2,
+      "default": 2,
       "title": "Schema Version",
       "type": "integer"
     },
-    "intent": {
-      "enum": [
-        "create_task",
-        "log_care",
-        "unknown"
-      ],
-      "title": "Intent",
+    "result_id": {
+      "format": "uuid",
+      "title": "Result Id",
       "type": "string"
     },
-    "source_text": {
-      "maxLength": 4000,
-      "minLength": 1,
-      "title": "Source Text",
-      "type": "string"
-    },
-    "pet_name": {
-      "anyOf": [
-        {
-          "maxLength": 100,
-          "minLength": 1,
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Pet Name"
-    },
-    "title": {
-      "anyOf": [
-        {
-          "maxLength": 120,
-          "minLength": 1,
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Title"
-    },
-    "due_at": {
-      "anyOf": [
-        {
-          "format": "date-time",
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Due At"
-    },
-    "recurrence": {
-      "anyOf": [
-        {
-          "enum": [
-            "none",
-            "daily",
-            "weekly",
-            "monthly"
-          ],
-          "type": "string"
-        },
-        {
-          "type": "null"
-        }
-      ],
-      "default": null,
-      "title": "Recurrence"
-    },
-    "missing_fields": {
+    "drafts": {
       "items": {
-        "enum": [
-          "pet",
-          "title",
-          "due_at",
-          "intent"
-        ],
-        "type": "string"
+        "$ref": "#/$defs/VoiceCommandDraft"
       },
-      "title": "Missing Fields",
+      "title": "Drafts",
+      "type": "array"
+    },
+    "unparsed_fragments": {
+      "items": {
+        "$ref": "#/$defs/UnparsedFragment"
+      },
+      "title": "Unparsed Fragments",
       "type": "array"
     },
     "requires_confirmation": {
@@ -102,9 +426,16 @@
     }
   },
   "required": [
-    "intent",
-    "source_text"
+    "recording_id",
+    "revision",
+    "transcript_revision",
+    "transcript",
+    "recording_started_at",
+    "timezone",
+    "result_id",
+    "drafts",
+    "unparsed_fragments"
   ],
-  "title": "VoiceCommandDraft",
+  "title": "VoiceInterpretResult",
   "type": "object"
 }
