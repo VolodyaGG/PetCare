@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "petcare-backend"
+version = "0.1.0"
+description = "PetCare API"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi==0.135.1",
+  "uvicorn==0.54.0",
+  "sqlalchemy==2.0.48",
+  "psycopg2-binary==2.9.11",
+  "alembic==1.18.4",
+  "pydantic-settings==2.16.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.2.0", "httpx==0.28.1", "ruff==0.7.4"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["integration: requires a dedicated PostgreSQL database"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
